@@ -1,0 +1,22 @@
+meta {
+  name: Transcribe Audio File (Hinglish Code-Switching)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/v1/transcribe
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  file: @file(../cost_of_care.mp3)
+  model: nova-3
+  language: multi
+  diarize: true
+  smart_format: true
+  punctuate: true
+  include_raw: false
+  include_words: false
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Transcribe Audio File (Nova-3 Medical Clinical EN)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/v1/transcribe
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  file: @file(../cost_of_care.mp3)
+  model: nova-3-medical
+  language: en
+  diarize: true
+  smart_format: true
+}

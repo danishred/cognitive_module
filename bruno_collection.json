@@ -1,0 +1,180 @@
+{
+  "name": "Cognitive Audio STT",
+  "version": "1",
+  "items": [
+    {
+      "type": "http-request",
+      "name": "Health Check",
+      "seq": 1,
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/health",
+        "params": [],
+        "headers": [],
+        "body": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http-request",
+      "name": "Transcribe Audio File (Hinglish Code-Switching)",
+      "seq": 2,
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/v1/transcribe",
+        "params": [],
+        "headers": [],
+        "body": {
+          "mode": "multipartForm",
+          "multipartForm": [
+            {
+              "name": "file",
+              "type": "file",
+              "value": ["cost_of_care.mp3"],
+              "enabled": true
+            },
+            {
+              "name": "model",
+              "type": "text",
+              "value": "nova-3",
+              "enabled": true
+            },
+            {
+              "name": "language",
+              "type": "text",
+              "value": "multi",
+              "enabled": true
+            },
+            {
+              "name": "diarize",
+              "type": "text",
+              "value": "true",
+              "enabled": true
+            },
+            {
+              "name": "smart_format",
+              "type": "text",
+              "value": "true",
+              "enabled": true
+            },
+            {
+              "name": "punctuate",
+              "type": "text",
+              "value": "true",
+              "enabled": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "http-request",
+      "name": "Transcribe Audio File (Nova-3 Medical Clinical EN)",
+      "seq": 3,
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/v1/transcribe",
+        "params": [],
+        "headers": [],
+        "body": {
+          "mode": "multipartForm",
+          "multipartForm": [
+            {
+              "name": "file",
+              "type": "file",
+              "value": ["cost_of_care.mp3"],
+              "enabled": true
+            },
+            {
+              "name": "model",
+              "type": "text",
+              "value": "nova-3-medical",
+              "enabled": true
+            },
+            {
+              "name": "language",
+              "type": "text",
+              "value": "en",
+              "enabled": true
+            },
+            {
+              "name": "diarize",
+              "type": "text",
+              "value": "true",
+              "enabled": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "http-request",
+      "name": "Transcribe Audio Raw Stream",
+      "seq": 4,
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/v1/transcribe/raw?model=nova-3&language=multi&diarize=true",
+        "params": [],
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "audio/mpeg",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "file",
+          "file": "cost_of_care.mp3"
+        }
+      }
+    },
+    {
+      "type": "http-request",
+      "name": "Transcribe Audio URL",
+      "seq": 5,
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/v1/transcribe/url",
+        "params": [],
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"url\": \"https://static.deepgram.com/examples/Bueller-Life-moves-pretty-fast.wav\",\n  \"model\": \"nova-3\",\n  \"language\": \"multi\",\n  \"diarize\": true,\n  \"smart_format\": true\n}"
+        }
+      }
+    },
+    {
+      "type": "http-request",
+      "name": "Get Sample Audio File",
+      "seq": 6,
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/sample-audio",
+        "params": [],
+        "headers": [],
+        "body": {
+          "mode": "none"
+        }
+      }
+    }
+  ],
+  "environments": [
+    {
+      "name": "Local",
+      "variables": [
+        {
+          "name": "baseUrl",
+          "value": "http://localhost:8000",
+          "enabled": true
+        }
+      ]
+    }
+  ]
+}

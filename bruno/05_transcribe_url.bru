@@ -1,0 +1,21 @@
+meta {
+  name: Transcribe Audio URL
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/v1/transcribe/url
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "url": "https://static.deepgram.com/examples/Bueller-Life-moves-pretty-fast.wav",
+    "model": "nova-3",
+    "language": "multi",
+    "diarize": true,
+    "smart_format": true
+  }
+}

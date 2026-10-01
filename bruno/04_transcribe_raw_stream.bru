@@ -1,0 +1,15 @@
+meta {
+  name: Transcribe Audio Raw Stream
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/v1/transcribe/raw?model=nova-3&language=multi&diarize=true
+  body: binary
+  auth: none
+}
+
+body:binary {
+  @file(../cost_of_care.mp3)
+}
